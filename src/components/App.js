@@ -12,6 +12,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
+// eslint-disable-next-line
 const firebaseApp = initializeApp(firebaseConfig);
 
 const App = () => {
@@ -33,7 +34,6 @@ const App = () => {
           displayName: user.displayName,
           uid: user.uid,
         });
-        console.log(auth.currentUser.displayName);
       } else {
         setUserObj(null);
         setIsLoggedIn(false);

@@ -6,16 +6,44 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import Todo from "components/Todo";
+import TodoFac from "components/TodoFac";
 
 const Home = ({ userObj }) => {
-  const [todo, setTodo] = useState([]);
+  const [todos, setTodos] = useState([]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const collectionQuery = query(
+      collection(getFirestore(), "todo"),
+      orderBy("createdAt", "desc")
+    );
+    const unsubsribe = onSnapshot(collectionQuery, (querySnapshot) => {
+      const todoArray = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      setTodos(todoArray);
+    });
+
+    return () => {
+      unsubsribe();
+    };
+  }, []);
 
   return (
     <>
-      <h1>Welcome to Home</h1>
-      <h2>TESTING</h2>
+      <TodoFac userObj={userObj} />
+      <div>
+        {todos.map((todo) => (
+          <Todo
+            key={todo.id}
+            todoObject={todo}
+            isOwner={todo.creatorId === userObj.id}
+          />
+        ))}
+      </div>
     </>
   );
 };
