@@ -51,7 +51,12 @@ const App = () => {
         ) : (
           <span>Initializing...</span>
         )}
-        <footer>Zingiber {new Date().getFullYear()}</footer>
+        <footer>
+          Zingiber {new Date().getFullYear()} &#183; icons delivered by{" "}
+          <a className="footerA" href="https://fontawesome.com/">
+            Font Awesome
+          </a>
+        </footer>
       </div>
     </>
   );

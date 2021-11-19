@@ -20,6 +20,12 @@ footer {
   bottom: 0;
 }
 
+.footerA {
+  display: inline-block;
+  text-decoration: none;
+  color: #9c9ca0;
+}
+
 .appContainer {
   width: 100%;
   display: flex;
