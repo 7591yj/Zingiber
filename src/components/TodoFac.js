@@ -14,11 +14,11 @@ const TodoFac = ({ userObj }) => {
       createAt: Date.now(),
       creatorId: userObj.uid,
       creatorDisplayName: userObj.displayName,
-      finished: 0,
+      finished: false,
     };
 
     try {
-      const docRef = await addDoc(collection(db, "todo"), todoObj);
+      const docRef = await addDoc(collection(db, "todos"), todoObj);
       console.log("Written", docRef.id);
     } catch (error) {
       console.log(error);

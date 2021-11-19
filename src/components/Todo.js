@@ -1,9 +1,11 @@
 import { deleteDoc, doc, getFirestore, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
+import "css/Todo.css";
 
-const Todo = ({ todoObject, isOwner }) => {
+const Todo = ({ todoObject, isOwner, isFinished }) => {
   const db = getFirestore();
 
+  const [finished, setFinished] = useState(isFinished);
   const [editing, setEditing] = useState(false);
   const [newTodo, setNewTodo] = useState(todoObject.text);
 
@@ -15,6 +17,19 @@ const Todo = ({ todoObject, isOwner }) => {
   };
 
   const toggleEditing = async () => setEditing((prev) => !prev);
+
+  const onClickFinished = async () => {
+    setFinished((prev) => !prev);
+    if (finished === false) {
+      await updateDoc(doc(db, `todos/${todoObject.id}`), {
+        finished: true,
+      });
+    } else if (finished === true) {
+      await updateDoc(doc(db, `todos/${todoObject.id}`), {
+        finished: false,
+      });
+    }
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -53,13 +68,32 @@ const Todo = ({ todoObject, isOwner }) => {
         </>
       ) : (
         <>
-          <span>Written by: {todoObject.creatorDisplayName}</span>
-          <h4>{todoObject.text}</h4>
-          {isOwner && (
-            <>
-              <button onClick={onClickDelete}>Delete</button>
-              <button onClick={toggleEditing}>Edit</button>
-            </>
+          {finished ? (
+            <div className="finished">
+              <>
+                <span>Written by: {todoObject.creatorDisplayName}</span>
+                <h4>{todoObject.text}</h4>
+                {isOwner && (
+                  <>
+                    <button onClick={onClickDelete}>Delete</button>
+                    <button onClick={toggleEditing}>Edit</button>
+                    <button onClick={onClickFinished}>Not finished</button>
+                  </>
+                )}
+              </>
+            </div>
+          ) : (
+            <div className="unfinished">
+              <span>Written by: {todoObject.creatorDisplayName}</span>
+              <h4>{todoObject.text}</h4>
+              {isOwner && (
+                <>
+                  <button onClick={onClickDelete}>Delete</button>
+                  <button onClick={toggleEditing}>Edit</button>
+                  <button onClick={onClickFinished}>Finish</button>
+                </>
+              )}
+            </div>
           )}
         </>
       )}

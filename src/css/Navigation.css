@@ -1,0 +1,14 @@
+header {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}

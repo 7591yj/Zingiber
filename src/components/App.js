@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "components/Router";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import "css/App.css";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -44,12 +45,14 @@ const App = () => {
 
   return (
     <>
-      {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
-      ) : (
-        <span>Initializing...</span>
-      )}
-      <footer>Zingiber {new Date().getFullYear()}</footer>
+      <div className="appContainer">
+        {init ? (
+          <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        ) : (
+          <span>Initializing...</span>
+        )}
+        <footer>Zingiber {new Date().getFullYear()}</footer>
+      </div>
     </>
   );
 };

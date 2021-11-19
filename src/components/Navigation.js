@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "css/Navigation.css";
 
 const Navigation = ({ userObj }) => {
   return (
@@ -9,10 +10,10 @@ const Navigation = ({ userObj }) => {
           <Link to="/">Home</Link>
         </li>
         <li className="category">
-          <Link to="/category">Category</Link>
+          <Link to="/category">[Not fin] Category</Link>
         </li>
         <li className="setting">
-          <Link to="/setting">Setting</Link>
+          <Link to="/setting">[Not fin] Setting</Link>
         </li>
       </ul>
       <h1>Zingiber</h1>
